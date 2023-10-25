@@ -10,7 +10,7 @@ export async function GET(request, { params }) {
   });
 
   if (!profile) {
-    return NextResponse.status(404).json({ error: "Profile not found" });
+    return NextResponse.json({ error: "Profile not found" }, { status: 404 });
   }
   return NextResponse.json(profile, { status: 200 });
 }

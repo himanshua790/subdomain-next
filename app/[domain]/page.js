@@ -1,28 +1,24 @@
 "use client";
-const fetchProfile = async (domain) => {
-  const response = await fetch(`/api/${domain}`);
-  const resp = await response.json();
-  return resp;
-};
-
-import ProfileCard from "../../components/ProfileCard";
 import React, { Suspense } from "react";
-import useSWR from "swr";
+import ProfileCard from "../../components/ProfileCard";
+import { useFetchProfile } from "@/lib/hooks";
 
+/**
+ * The 'Page' component is responsible for displaying user profiles based on subdomains.
+ * @param {Object} props - Props passed to the component.
+ * @returns {JSX.Element} - The rendered 'Page' component.
+ */
 export default function Page(props) {
-  const domain = props?.params?.domain;
+  // Use SWR (stale-while-revalidate) to fetch and manage profile data
+  const { data: profile, error } = useFetchProfile(props?.params?.domain);
+  if (error) return <div>{error.message}</div>;
 
-  const {
-    data: profile,
-    error,
-    isLoading,
-  } = useSWR("profile", () => fetchProfile(props?.params?.domain));
-  const style = profile?.styles ? {} : { backgroundColor: "red" };
   return (
     <div>
-      {isLoading && <p>....Loading!</p>}
-
+      {/* Display a loading message while fetching data */}
+      {/* Consider using a skeleton instead of suspense text for a better user experience */}
       <Suspense fallback={<div>Loading...</div>}>
+        {/* Render the 'ProfileCard' component with the fetched 'profile' data */}
         <ProfileCard profile={profile} />
       </Suspense>
     </div>
