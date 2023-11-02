@@ -46,8 +46,9 @@ To set up this project, follow these steps:
         envCopy code
 
         `DATABASE_URL="postgresql://your-database-url"
-
-    NEXT_PUBLIC_ROOT_DOMAIN=your-root-domain`
+        NEXT_PUBLIC_ROOT_DOMAIN=your-root-domain`
+        NODE_ENV='development' | 'production'
+        PORT=3000
 
 4.  Initialize and migrate the database:
 

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { HOST, PROTOCOL } from "@/lib/constants";
 
 const buttonStyle = {
   border: "1px solid transparent",
@@ -35,19 +36,13 @@ const ButtonLink = ({ href, text }) => (
 );
 
 export default function Home() {
-  const isLocalhost =
-    typeof window !== "undefined" && window.location.href.includes("localhost");
-
-  const protocol = isLocalhost ? "http" : "https";
-  const host = process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost:3000";
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
         {links.map((link, index) => (
           <ButtonLink
             key={index}
-            href={`${protocol}://${link.path}.${host}`}
+            href={`${PROTOCOL}://${link.path}.${HOST}`}
             text={link.text}
           />
         ))}
