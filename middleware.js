@@ -8,17 +8,20 @@ const PUBLIC_FILE = /\.(.*)$/; // Files
 export async function middleware(req) {
   // Clone the URL
   const url = req.nextUrl.clone();
-
   // Skip public files
   if (
     PUBLIC_FILE.test(url.pathname) ||
     url.pathname.includes("_next") ||
     url.pathname.includes("/api/")
-  )
-    return;
+  ) {
+    return NextResponse.next();
+  }
 
   const host = req.headers.get("host");
   const subdomain = getValidSubdomain(host);
+
+  if (subdomain === host.split(".")[0]) return NextResponse.next();
+
   if (subdomain) {
     // Subdomain available, rewriting
     console.log(
