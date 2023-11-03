@@ -14,8 +14,9 @@ export async function middleware(req) {
     PUBLIC_FILE.test(url.pathname) ||
     url.pathname.includes("_next") ||
     url.pathname.includes("/api/")
-  )
-    return;
+  ) {
+    return NextResponse.next();
+  }
 
   const host = req.headers.get("host");
   console.log({ host });
@@ -23,7 +24,6 @@ export async function middleware(req) {
   console.log({ subdomain });
   if (subdomain) {
     // Subdomain available, rewriting
-
     console.log(
       `>>> Rewriting: ${url.pathname} to /${subdomain}${url.pathname}`
     );
