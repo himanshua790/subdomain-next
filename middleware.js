@@ -21,7 +21,10 @@ export async function middleware(req) {
   const host = req.headers.get("host");
   console.log({ host });
   const subdomain = getValidSubdomain(host);
-  console.log({ subdomain });
+
+  console.log({ subdomain, hostsplit: host.split(".")[0] });
+  if (subdomain === host.split(".")[0]) return NextResponse.next();
+
   if (subdomain) {
     // Subdomain available, rewriting
     console.log(
