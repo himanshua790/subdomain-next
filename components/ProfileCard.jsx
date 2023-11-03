@@ -16,6 +16,7 @@ const ProfileCard = async ({ profile }) => {
         alt="profile photo"
         width={200}
         height={200}
+        loading="lazy"
       />
     </div>
   );
