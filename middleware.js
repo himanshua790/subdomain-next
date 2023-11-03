@@ -23,6 +23,7 @@ export async function middleware(req) {
   console.log({ subdomain });
   if (subdomain) {
     // Subdomain available, rewriting
+
     console.log(
       `>>> Rewriting: ${url.pathname} to /${subdomain}${url.pathname}`
     );
