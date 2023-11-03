@@ -8,7 +8,7 @@ const PUBLIC_FILE = /\.(.*)$/; // Files
 export async function middleware(req) {
   // Clone the URL
   const url = req.nextUrl.clone();
-
+  console.log({ pathname: url.pathname });
   // Skip public files
   if (
     PUBLIC_FILE.test(url.pathname) ||
@@ -18,7 +18,9 @@ export async function middleware(req) {
     return;
 
   const host = req.headers.get("host");
+  console.log({ host });
   const subdomain = getValidSubdomain(host);
+  console.log({ subdomain });
   if (subdomain) {
     // Subdomain available, rewriting
     console.log(
